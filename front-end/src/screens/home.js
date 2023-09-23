@@ -13,8 +13,15 @@ import { Video, ResizeMode } from "expo-av";
 import { Button, Icon } from "react-native-elements";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
-const Card = ({ info, onSelect }) => {
+const Card = ({ info, onSelect, }) => {
+  const navigation = useNavigation();
+
+  const ArticleInformation = () => {
+    navigation.navigate("Article");
+  };
+
   return (
     <View style={styles.card}>
       <View style={styles.cardContent}>
@@ -32,12 +39,42 @@ const Card = ({ info, onSelect }) => {
         {info.midia && (
           <Image source={{ uri: info.midia }} style={styles.cardMidia} />
         )}
-        <Button
+         <View style={styles.reactionButtonsModal}>
+                  <TouchableOpacity>
+                    <Icon
+                      name="thumbs-up"
+                      type="font-awesome"
+                      color="#888"
+                      size={30}
+                      style={styles.thumbsUpIcon}
+                    />
+                  </TouchableOpacity>
+
+                  <TouchableOpacity onPress={ArticleInformation}>
+                    <Icon
+                      name="comment-o"
+                      type="font-awesome"
+                      color="#888"
+                      size={30}
+                      style={styles.bookmarkIcon}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity>
+                    <Icon
+                      name="bookmark"
+                      type="font-awesome"
+                      color="#888"
+                      size={30}
+                      style={styles.bookmarkIcon}
+                    />
+                  </TouchableOpacity>
+                  </View>
+        {/* <Button
           title="Ver"
           buttonStyle={styles.verButton}
           titleStyle={styles.verButtonText}
-          onPress={() => onSelect(info)}
-        />
+          onPress={ArticleInformation}
+        /> */}
       </View>
     </View>
   );
@@ -108,137 +145,6 @@ export default function Home(props) {
           ))}
       </View>
 
-      {selectedArticle &&
-        (IsVideoExtension(selectedArticle.midia) ? (
-          <Modal visible={isModalVisible} animationType="slide" transparent>
-            <View style={styles.modalContainer}>
-              <View style={styles.modalContent}>
-                <Video
-                  ref={video}
-                  source={{ uri: selectedArticle.midia }}
-                  style={styles.modalMidia}
-                  useNativeControls
-                  resizeMode={ResizeMode.CONTAIN}
-                  isLooping
-                  onPlaybackStatusUpdate={(status) => setStatus(() => status)}
-                />
-                <Text style={styles.modalTitle}>{selectedArticle.titulo}</Text>
-                <Text style={styles.modalDescription}>
-                  {selectedArticle.descricao}
-                </Text>
-                <View style={styles.reactionButtonsModal}>
-                  <TouchableOpacity>
-                    <Icon
-                      name="thumbs-up"
-                      type="font-awesome"
-                      color="#888"
-                      size={30}
-                      style={styles.thumbsUpIcon}
-                    />
-                  </TouchableOpacity>
-
-                  <TouchableOpacity>
-                    <Icon
-                      name="thumbs-down"
-                      type="font-awesome"
-                      color="#888"
-                      size={30}
-                      style={styles.thumbsDownIcon}
-                    />
-                  </TouchableOpacity>
-
-                  <TouchableOpacity>
-                    <Icon
-                      name="bookmark"
-                      type="font-awesome"
-                      color="#888"
-                      size={30}
-                      style={styles.bookmarkIcon}
-                    />
-                  </TouchableOpacity>
-
-                  <TouchableOpacity>
-                    <Icon
-                      name="share-alt-square"
-                      type="font-awesome"
-                      color="#888"
-                      size={30}
-                      style={styles.bookmarkIcon}
-                    />
-                  </TouchableOpacity>
-
-                  <Button
-                    title="Fechar"
-                    onPress={() => setModalVisible(false)}
-                    buttonStyle={styles.modalButton}
-                  />
-                </View>
-              </View>
-            </View>
-          </Modal>
-        ) : (
-          <Modal visible={isModalVisible} animationType="slide" transparent>
-            <View style={styles.modalContainer}>
-              <View style={styles.modalContent}>
-                <Image
-                  source={{ uri: selectedArticle.midia }}
-                  style={styles.modalMidia}
-                />
-                <Text style={styles.modalTitle}>{selectedArticle.titulo}</Text>
-                <Text style={styles.modalDescription}>
-                  {selectedArticle.descricao}
-                </Text>
-                <View style={styles.reactionButtonsModal}>
-                  <TouchableOpacity>
-                    <Icon
-                      name="thumbs-up"
-                      type="font-awesome"
-                      color="#888"
-                      size={30}
-                      style={styles.thumbsUpIcon}
-                    />
-                  </TouchableOpacity>
-
-                  <TouchableOpacity>
-                    <Icon
-                      name="thumbs-down"
-                      type="font-awesome"
-                      color="#888"
-                      size={30}
-                      style={styles.thumbsDownIcon}
-                    />
-                  </TouchableOpacity>
-
-                  <TouchableOpacity>
-                    <Icon
-                      name="bookmark"
-                      type="font-awesome"
-                      color="#888"
-                      size={30}
-                      style={styles.bookmarkIcon}
-                    />
-                  </TouchableOpacity>
-
-                  <TouchableOpacity>
-                    <Icon
-                      name="share-alt-square"
-                      type="font-awesome"
-                      color="#888"
-                      size={30}
-                      style={styles.bookmarkIcon}
-                    />
-                  </TouchableOpacity>
-
-                  <Button
-                    title="Fechar"
-                    onPress={() => setModalVisible(false)}
-                    buttonStyle={styles.modalButton}
-                  />
-                </View>
-              </View>
-            </View>
-          </Modal>
-        ))}
     </ScrollView>
   );
 }
