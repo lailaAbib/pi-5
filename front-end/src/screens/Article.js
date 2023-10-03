@@ -1,74 +1,75 @@
 import React from 'react';
-import { 
-    Container,
-    StyleSheet,
-    Text,
-    View, 
-} from 'react-native';
+import { View, Text, Image, TextInput, TouchableOpacity} from 'react-native';
+import {  Button, Icon } from 'react-native-elements';
 
 
-// const Messages = [
-//   {
-//     id: '1',
-//     userName: 'Jenny Doe',
-//     userImg: require('../../assets/user-3.jpg'),
-//     messageTime: '4 mins ago',
-//     messageText:
-//       'Hey there, this is my test for a post of my social app in React Native.',
-//   },
-//   {
-//     id: '2',
-//     userName: 'John Doe',
-//     userImg: require('../../assets/user-1.jpg'),
-//     messageTime: '2 hours ago',
-//     messageText:
-//       'Hey there, this is my test for a post of my social app in React Native.',
-//   },
-//   {
-//     id: '3',
-//     userName: 'Ken William',
-//     userImg: require('../../assets/user-4.jpg'),
-//     messageTime: '1 hours ago',
-//     messageText:
-//       'Hey there, this is my test for a post of my social app in React Native.',
-//   },
-//   {
-//     id: '4',
-//     userName: 'Selina Paul',
-//     userImg: require('../../assets/user-6.jpg'),
-//     messageTime: '1 day ago',
-//     messageText:
-//       'Hey there, this is my test for a post of my social app in React Native.',
-//   },
-//   {
-//     id: '5',
-//     userName: 'Christy Alex',
-//     userImg: require('../../assets/user-7.jpg'),
-//     messageTime: '2 days ago',
-//     messageText:
-//       'Hey there, this is my test for a post of my social app in React Native.',
-//   },
-// ];
+const Article = () => {
 
-const Article = ({navigation}) => {
+  const userImageUri = 'https://via.placeholder.com/40';  // Imagem de exemplo para o usuário
+  const postImageUri = 'https://via.placeholder.com/200';
+
     return (
-        <View>
-        <Text>Fazer o Post comment AQUI!</Text>
+      <View style={{ margin: 10, borderWidth: 1, borderColor: '#ccc', borderRadius: 10, padding: 10 }}>
+      {/* Cabeçalho do post */}
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Image
+          source={{ uri: userImageUri }}
+          style={{ width: 40, height: 40, borderRadius: 20 }}
+        />
+        <Text style={{ marginLeft: 10, fontWeight: 'bold' }}>Nome do Usuário</Text>
       </View>
+
+ 
+      <Text style={{ marginTop: 10 }}>Legenda do post aqui...</Text>
+
+      <Image
+        source={{ uri: postImageUri }}
+        style={{ width: '100%', height: 200, marginTop: 10 }}
+      />
+
+
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 15 }}>
+      <TouchableOpacity>
+                    <Icon
+                      name="thumbs-up"
+                      type="font-awesome"
+                      color="#888"
+                      size={30}
+                    />
+                  </TouchableOpacity>
+
+                  <TouchableOpacity >
+                    <Icon
+                      name="bookmark"
+                      type="font-awesome"
+                      color="#888"
+                      size={30}
+                    />
+                  </TouchableOpacity>
+        <TouchableOpacity>
+                    <Icon
+                      name="share"
+                      type="font-awesome"
+                      color="#888"
+                      size={30}
+                      
+                    />
+                  </TouchableOpacity>
+      </View>
+
+      <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
+        <TextInput
+          style={{ flex: 1, borderWidth: 1, borderColor: '#ccc', borderRadius: 20, padding: 10 }}
+          placeholder="Adicione um comentário..."
+        />
+        <TouchableOpacity>
+          <Button style={{marginLeft: 3}}
+            title="Enviar"
+          />
+        </TouchableOpacity>
+      </View>
+    </View>
     );
 };
 
 export default Article;
-
-const styles = StyleSheet.create({
-  container : {
-  flex: 1,
-  paddingLeft: '20px',
-  paddingRight: '20px',
-  alignItems: 'center',
-  backgroundColor: '#ffffff',
-},
-
-
-});
-
